@@ -1,2 +1,5 @@
 //types global
-export interface Common {}
+export interface ModuleJWT {
+  secret: string;
+  expireIn: string;
+}

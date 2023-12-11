@@ -1,8 +1,11 @@
 import express from 'express';
-import { module1 } from './modules/module1';
+import router from './routes';
+import { errorMiddleware } from './middlewares/error';
 const app = express();
 
 app.use(express.json());
-app.use(module1);
+app.use(router);
+
+app.use(errorMiddleware);
 
 export { app };

@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(uuid())
+  username  String
+  email String
+  password String
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relacionamento com a casa
+  houses    House[]  @relation("userToHouse")
+}
+
+// Definindo o modelo da casa
+model House {
+  id        String @id @default(uuid())
+  name      String
+  address   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relacionamento com os usuários
+  users     User[]   @relation("userToHouse")
+  // Relacionamento com as contas a pagar
+  bills     Bill[]
+}
+
+// Definindo o modelo das contas a pagar
+model Bill {
+  id          String @id @default(uuid())
+  description String
+  amount      Float
+  dueDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Relacionamento com a casa
+  house       House    @relation(fields: [houseId], references: [id])
+  houseId     String
+}
