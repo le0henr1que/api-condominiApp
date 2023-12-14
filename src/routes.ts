@@ -4,7 +4,7 @@ import { authorize } from './middlewares/authorizations';
 import { authentication } from './modules/authentication/authentication.routes';
 import { user } from './modules/user/user.routes';
 
-const { Router } = require('express');
+import { Router } from 'express';
 const router = Router();
 
 router.use('/user', authMiddleware, authorize([ROLES.ADMIN]), user);
