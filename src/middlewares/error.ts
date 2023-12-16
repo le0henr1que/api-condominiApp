@@ -1,12 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response } from 'express';
 import { HttpError } from '../shered/appError';
 
-export function errorMiddleware(
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export function errorMiddleware(err: Error, res: Response) {
   console.error(err);
   console.error('Veio para o middleware');
 

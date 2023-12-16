@@ -1,4 +1,6 @@
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const env = {
   PORT: process.env.PORT,

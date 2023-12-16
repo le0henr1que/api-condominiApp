@@ -1,6 +1,4 @@
-import { User } from '@prisma/client';
 import { IUser } from '../../repositories/IUser';
-import { HttpError } from '../../../../shered/appError';
 
 export class FindUserUseCase {
   constructor(public serviceUser: IUser) {

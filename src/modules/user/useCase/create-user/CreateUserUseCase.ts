@@ -6,7 +6,7 @@ export class CreateUserUseCase {
   constructor(private createUserRepository: IUser) {}
 
   async execute(dataUser: any) {
-    const { email, password, username, role } = dataUser;
+    const { email, password } = dataUser;
 
     dataUser.password = await hash(password, 8);
 

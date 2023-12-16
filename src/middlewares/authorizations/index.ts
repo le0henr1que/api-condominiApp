@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 import { jwtModule } from '../../config/jwt';
 
-const { secret, expireIn } = jwtModule;
+const { secret } = jwtModule;
 export const authorize = (allowedRoles: string[]) => {
   return (request: Request, response: Response, next: NextFunction) => {
     const { authorization } = request.headers;

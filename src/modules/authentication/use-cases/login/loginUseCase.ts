@@ -10,7 +10,7 @@ export class LoginUseCase {
   constructor(private authenticationRepository: IAuthentication) {}
 
   async execute(dataUser: any) {
-    const { password, email, name } = dataUser;
+    const { password, email } = dataUser;
 
     const searchUser = await this.authenticationRepository.findEmail(email);
 

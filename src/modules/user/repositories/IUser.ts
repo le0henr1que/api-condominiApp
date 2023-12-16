@@ -1,5 +1,3 @@
-import { User } from '@prisma/client';
-
 export interface IUser {
   findAllUser(): Promise<
     { id: string; username: string; email: string; role: string }[]

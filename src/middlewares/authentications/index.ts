@@ -1,4 +1,4 @@
-import jwt, { TokenExpiredError, verify } from 'jsonwebtoken';
+import { TokenExpiredError, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { jwtModule } from '../../config/jwt';
 
@@ -8,7 +8,7 @@ async function authMiddleware(
   next: NextFunction,
 ) {
   const { authorization } = request.headers;
-  const { secret, expireIn } = jwtModule;
+  const { secret } = jwtModule;
 
   if (!authorization) {
     return response

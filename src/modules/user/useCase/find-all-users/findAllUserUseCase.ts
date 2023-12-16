@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import { IUser } from '../../repositories/IUser';
 
 export class FindAllUserUseCase {
