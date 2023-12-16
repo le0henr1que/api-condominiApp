@@ -110,7 +110,7 @@ jobs:
           curl -X POST -H "Content-Type: application/json" -d '{
             "environment": "${{ github.ref }}",
             "commit": "${{ github.sha }}",
-            "author": "${{ github.actor }}", 
+            "author": "${{ github.actor }}",
             "project":"app-boilerplate-back-end",
             "commands":["echo 'template'", "echo 'backEnd'"]
           }' https://webhook-api-sikx.onrender.com/api/webhook
@@ -126,7 +126,7 @@ jobs:
           curl -X POST -H "Content-Type: application/json" -d '{
             "environment": "${{ github.ref }}",
             "commit": "${{ github.sha }}",
-            "author": "${{ github.actor }}", 
-            "project":"app-boilerplate-back-end", 
+            "author": "${{ github.actor }}",
+            "project":"app-boilerplate-back-end",
             "commands":["echo 'template'", "echo 'backEnd'"]
           }' https://webhook-api-sikx.onrender.com/api/webhook
