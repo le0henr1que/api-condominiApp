@@ -12,7 +12,6 @@
   },
   "rules": {
     "no-underscore-dangle": "off",
-
     "prettier/prettier": "error"
   }
 }

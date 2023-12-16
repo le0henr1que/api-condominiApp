@@ -17,14 +17,14 @@ export class LoginUseCase {
     if (!searchUser) {
       throw new HttpError(
         'Ooops! Parece que suas credenciais de login estão incorretas. Por favor, verifique se digitou corretamente ou redefina sua senha se tiver esquecido.',
-        404
+        404,
       );
     }
 
     if (!(await compare(password, searchUser.password))) {
       throw new HttpError(
         'Ooops! Parece que suas credenciais de login estão incorretas. Por favor, verifique se digitou corretamente ou redefina sua senha se tiver esquecido.',
-        401
+        401,
       );
     }
 
@@ -36,7 +36,7 @@ export class LoginUseCase {
         jwtModule.secret,
         {
           expiresIn: jwtModule.expireIn,
-        }
+        },
       ),
     };
 

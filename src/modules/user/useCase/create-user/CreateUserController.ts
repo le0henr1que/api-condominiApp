@@ -11,7 +11,7 @@ export class CreateUserController {
     if (!username) {
       throw new HttpError(
         "Propriedade 'name' não encontrada no corpo da requisição",
-        404
+        404,
       );
     }
 

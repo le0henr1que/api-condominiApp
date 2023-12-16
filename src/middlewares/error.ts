@@ -5,7 +5,7 @@ export function errorMiddleware(
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   console.error(err);
   console.error('Veio para o middleware');

@@ -19,7 +19,7 @@ export const authorize = (allowedRoles: string[]) => {
       const userRoles = decoded.role;
 
       const hasPermission = allowedRoles.some((role) =>
-        userRoles.includes(role)
+        userRoles.includes(role),
       );
 
       if (!hasPermission) {

@@ -11,21 +11,21 @@ user.get(
 
   resolver((request, response) => {
     return findAllUserController.handle(request, response);
-  })
+  }),
 );
 
 user.get(
   '/:id',
   resolver((request, response) => {
     return findUserController.handle(request, response);
-  })
+  }),
 );
 
 user.post(
   '/',
   resolver((request, response) => {
     return createUserController.handle(request, response);
-  })
+  }),
 );
 
 export { user };

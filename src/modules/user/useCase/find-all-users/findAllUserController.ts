@@ -7,7 +7,7 @@ export class FindAllUserController {
 
   async handle(
     request: Request,
-    response: Response
+    response: Response,
   ): Promise<Response | Error> {
     const user: User[] = await this.findAllUserUseCase.execute();
     return response.status(200).json({ error: false, results: user });

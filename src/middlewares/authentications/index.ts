@@ -5,7 +5,7 @@ import { jwtModule } from '../../config/jwt';
 async function authMiddleware(
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const { authorization } = request.headers;
   const { secret, expireIn } = jwtModule;

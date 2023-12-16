@@ -7,7 +7,7 @@ export class FindUserController {
 
   async handle(
     request: Request,
-    response: Response
+    response: Response,
   ): Promise<Response | Error> {
     const { id } = request.params;
     const user: User = await this.findUserUseCase.execute({ id });
