@@ -1,100 +1,34 @@
-name: Deploy
-
+name: ci-golang-workflow
 on:
-  workflow_dispatch:
-  push:
-    branches: [main, develop]
-
+  pull_request:
+    branches:
+      - develop
 jobs:
-  build-ci:
+  check-application:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          go-version: 118
+      - run: npm install
+      - run: npm run test
+      - run: npm run lint
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Execute Eslint
-        run: npm run lint
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Execute testes
-        run: npm run test
-
-      - name: Build
-        run: npm run build
-
-  # deploy-develop:
-  #   needs: build-ci
-  #   if: github.ref == 'refs/heads/develop'
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v3
-
-  #     - name: Log in to Docker Hub
-  #       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-  #       with:
-  #         username: ${{ secrets.DOCKER_USERNAME }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
-
-  #     - name: Get current Date and Hash HEAD
-  #       run: |
-  #         echo "DATE=$(git show -s --date=format:'%m%d%Y' --format='%cd' ${{ github.sha }})" >> $GITHUB_ENV
-  #         echo "HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-  #     - name: Extract metadata (tags, labels) for Docker
-  #       id: meta
-  #       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-  #       with:
-  #         images: leosfs/teste-ci-cd
-  #         flavor: |
-  #           latest=true
-  #           suffix=-${{ env.DATE }}-${{ env.HASH }}
-
-  #     - name: Build and push Docker image
-  #       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: ${{ steps.meta.outputs.tags }}
-  #         labels: ${{ steps.meta.outputs.labels }}
-
-  # deploy-production:
-  #   needs: build-ci
-  #   if: github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v3
-
-  #     - name: Log in to Docker Hub
-  #       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-  #       with:
-  #         username: ${{ secrets.DOCKER_USERNAME }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
-
-  #     - name: Get current Date and Hash HEAD
-  #       run: |
-  #         echo "DATE=$(git show -s --date=format:'%m%d%Y' --format='%cd' ${{ github.sha }})" >> $GITHUB_ENV
-  #         echo "HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-  #     - name: Extract metadata (tags, labels) for Docker
-  #       id: meta
-  #       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-  #       with:
-  #         images: leosfs/teste-ci-cd
-  #         flavor: |
-  #           latest=true
-  #           suffix=-${{ env.DATE }}-${{ env.HASH }}
-
-  #     - name: Build and push Docker image
-  #       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: ${{ steps.meta.outputs.tags }}
-  #         labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          tags: zaphodbrox/condominiApp:latest
