@@ -21,9 +21,12 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
 
-  docker:
-    runs-on: ubuntu-latest
-    steps:
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -41,10 +44,3 @@ jobs:
         with:
           push: true
           tags: zaphodbrox/condominiapp:latest
-
-  sonarcloud:
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
