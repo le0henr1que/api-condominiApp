@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
       - develop
+  push:
+    branches:
+      - feat/ci-pr
 jobs:
   check-application:
     runs-on: ubuntu-latest
