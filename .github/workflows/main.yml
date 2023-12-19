@@ -9,8 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-        with:
-          go-version: 118
       - run: npm install
       - run: npm run test
       - run: npm run lint
