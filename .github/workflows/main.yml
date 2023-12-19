@@ -27,7 +27,7 @@ jobs:
     steps:
       - shell: bash
         env:
-          SUPER_SECRET: ${{ secrets.SuperSecret }}
+          SUPER_SECRET: ${{ secrets.DOCKER_USERNAME }}
         run: |
           example-command "$SUPER_SECRET"
 
