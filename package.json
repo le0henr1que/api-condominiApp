@@ -11,9 +11,8 @@
     "build:watch": "tsc -w -p tsconfig.json",
     "build:release": "npm run clean && tsc -p tsconfig.release.json",
     "lint": "eslint . --ext .js --ext .ts",
-    "test": "jest",
+    "test": "jest --coverage",
     "prettier": "prettier --config .prettierrc --write .",
-
     "prepare": "husky install",
     "dev": "tsnd src/server.ts"
   },
@@ -50,7 +49,6 @@
     "tsnd": "^1.1.0",
     "typescript": "^4.9.5",
     "uuid": "^9.0.0",
-
     "yarn": "^1.22.19"
   },
   "devDependencies": {
